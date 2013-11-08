@@ -29,7 +29,13 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    if (self.contentOffset.x != 0) [self recenterIfNecessary];
+    [self recenterIfNecessary];
+}
+
+-(void)setFrame:(CGRect)frame {
+    [super setFrame: frame];
+//    self.contentSize = CGSizeMake(2 * frame.size.width, frame.size.height);
+//    contentView.frame = CGRectMake(0, 0, self.contentSize.width, self.contentSize.height);
 }
 
 // recenter content periodically to achieve impression of infinite scrolling
@@ -38,7 +44,7 @@
     CGFloat scrollOffsetMaxX = self.contentSize.width - self.bounds.size.width;
     CGFloat centerOffsetX = scrollOffsetMaxX / 2.0;                             // the center
     CGFloat distanceFromCenter = fabs(self.contentOffset.x - centerOffsetX);
-
+    
     if (distanceFromCenter > (self.contentSize.width / 4.0))  // the 1/2 center
     {
         self.contentOffset = CGPointMake(centerOffsetX, self.contentOffset.y);  // back to center
@@ -48,6 +54,7 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    
 }
 
 @end
